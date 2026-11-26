@@ -1,0 +1,657 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="robots" content="noindex, nofollow">
+<meta name="theme-color" content="#0b0c0c">
+<title>For Kathleen</title>
+<link rel="icon" href="data:,">
+<!--
+Design notes (antislop R-31, one line each)
+- Concept: Steven tells her the story in his own words, and her WhatsApp sits underneath as the proof.
+- Perspective: every chat is her phone, so his messages arrive on the left under his contact name, Honey Bear, and hers sit on the right in green.
+- Theme: dark, because it copies WhatsApp dark mode on her phone and the film plays on black.
+- Colour: WhatsApp's own greys and greens are content; the story is warm white, and the one accent is a warm amber taken from the film's grade, used only for chapter dates and clock captions.
+- Type: the phone's system font. The story uses three sizes: a small amber date heading each chapter, one large line at each chapter's emotional peak, and the body. The live clocks are the one huge number, because the time gap is the story.
+- Media keep their own shape: clips play whole at 16:9, the family photo is shown uncropped, other photos are cropped to 4:5 around the faces.
+- Motion: each message arrives with a typing indicator and the real WhatsApp sound when it scrolls into view; videos play while on screen. Off under reduced motion.
+- The bear in his contact name is Apple's own emoji as an image, so it looks like iOS on any phone.
+- Dials: ENERGY 2 / RHYTHM 3 / MOTION 2.
+- No third-party scripts or fonts, no cookies, no tracking. Password check is client-side only.
+-->
+<style>
+:root{
+  --bg:#0b0c0c; --in:#242626; --out:#144d37; --text:#e9edef; --story:#ece6da; --warm:#e6a65f;
+  --meta-in:rgba(233,237,239,.66); --meta-out:rgba(233,237,239,.78); --tick:#53bdeb;
+  --chip:#1c1e1e; --chip-text:#cdd1d3; --note:#1b1c1a; --note-text:#f2cd6e;
+  --hdr:rgba(18,19,19,.94); --line:rgba(233,237,239,.08);
+  --sys:-apple-system,BlinkMacSystemFont,"SF Pro Text","Helvetica Neue",Roboto,"Segoe UI",system-ui,sans-serif;
+  --ease:cubic-bezier(.22,1,.36,1);
+}
+*{box-sizing:border-box;margin:0;padding:0}
+html{background:var(--bg);-webkit-text-size-adjust:100%}
+body{background:var(--bg);color:var(--text);font-family:var(--sys);font-size:17px;line-height:1.32;-webkit-font-smoothing:antialiased;overflow-x:hidden}
+img,video{display:block;max-width:100%}
+button{font:inherit;color:inherit;background:none;border:0;cursor:pointer}
+button:active{transform:scale(.97)}
+a{color:var(--tick)}
+:focus-visible{outline:2px solid var(--tick);outline-offset:2px;border-radius:6px}
+.sr{position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0);white-space:nowrap}
+.emo{display:inline-block;width:1.15em;height:1.15em;vertical-align:-.2em}
+
+/* WhatsApp header, on the gate and on every chat window */
+.hdr{position:sticky;top:0;z-index:20;background:var(--hdr);-webkit-backdrop-filter:blur(14px);backdrop-filter:blur(14px);border-bottom:1px solid var(--line);padding:max(8px,env(safe-area-inset-top)) 16px 8px}
+.hdr-in{max-width:680px;margin:0 auto;display:flex;align-items:center;gap:12px}
+.av{width:40px;height:40px;border-radius:50%;flex:none;object-fit:cover;background:#3b4a54}
+.hdr b{display:block;font-size:17px;font-weight:600;line-height:1.2}
+.hdr small{display:block;font-size:13px;color:var(--meta-in);line-height:1.3}
+
+/* a chat window: her phone, his contact name stays on top while it scrolls */
+.win{position:relative;max-width:680px;margin-left:auto;margin-right:auto;background:var(--bg) url("doodles.svg") repeat;background-size:320px;border-radius:16px}
+.win .hdr{z-index:5;padding:8px 14px;border-radius:16px 16px 0 0}
+.win .hdr-in{gap:10px}
+.win .av{width:36px;height:36px}
+
+/* chat pieces */
+.thread{max-width:680px;margin:0 auto;padding:8px 12px}
+.win .thread{padding:4px 12px 18px}
+.chip{display:table;margin:14px auto 12px;background:var(--chip);color:var(--chip-text);font-size:12.5px;font-weight:500;line-height:1.3;padding:5px 10px;border-radius:8px}
+.note{display:table;max-width:86%;margin:4px auto 14px;background:var(--note);color:var(--note-text);font-size:13px;line-height:1.45;padding:7px 12px;border-radius:8px;text-align:center}
+.m{position:relative;width:fit-content;max-width:min(78%,470px);padding:7px 10px 8px 12px;border-radius:18px;margin-top:2px;overflow-wrap:anywhere}
+.m.in{background:var(--in);margin-right:auto}
+.m.out{background:var(--out);margin-left:auto}
+.m.first{margin-top:10px}
+.m p{white-space:pre-wrap}
+.m p::after{content:"";display:inline-block;width:44px}
+.m.out p::after{width:62px}
+.m time{position:absolute;right:10px;bottom:5px;font-size:11.5px;line-height:1;font-variant-numeric:tabular-nums;color:var(--meta-in)}
+.m.out time{color:var(--meta-out)}
+.m.out time::after{content:"";display:inline-block;width:16px;height:10px;margin-left:3px;vertical-align:-1px;background:no-repeat center/contain url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 10'%3E%3Cpath d='M1 5.5l3 3L10.5 1M6.5 8.5l.5.4L14.5 1' fill='none' stroke='%2353bdeb' stroke-width='1.6' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E")}
+.m.last.in::before,.m.last.out::before{content:"";position:absolute;bottom:0;width:14px;height:18px}
+.m.last.in::before{left:-5px;background:var(--in);clip-path:path("M14 0 C14 10 9 16 0 18 L14 18 Z")}
+.m.last.out::before{right:-5px;background:var(--out);clip-path:path("M0 0 C0 10 5 16 14 18 L0 18 Z")}
+.m.pic{padding:3px 3px 6px;width:min(300px,72%)}
+.m.pic img{width:100%;height:auto;border-radius:15px}
+.m.pic p{padding:6px 7px 0}
+
+/* messages arriving: space is kept so nothing jumps */
+.js .m.wait{opacity:0;transform:translateY(8px)}
+.m.shown{opacity:1;transform:none;transition:opacity .28s var(--ease),transform .28s var(--ease)}
+.m.typing{background:transparent!important}
+.m.typing>*,.m.typing::before{visibility:hidden}
+.m.typing::after{content:"";position:absolute;left:0;bottom:0;width:62px;height:36px;border-radius:18px;background:var(--in) no-repeat center/34px 8px url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 34 8'%3E%3Ccircle cx='4' cy='4' r='3.5' fill='%23a8adb0'/%3E%3Ccircle cx='17' cy='4' r='3.5' fill='%23a8adb0'/%3E%3Ccircle cx='30' cy='4' r='3.5' fill='%23a8adb0'/%3E%3C/svg%3E");animation:breathe 1s infinite var(--ease)}
+@keyframes breathe{50%{opacity:.55}}
+
+/* voice note */
+.m.vn{width:min(310px,82%);padding:8px 10px 8px 8px}
+.vn-row{display:flex;align-items:center;gap:8px}
+.vn-play{width:44px;height:44px;flex:none;display:grid;place-items:center;border-radius:50%}
+.vn-play:hover{background:rgba(255,255,255,.06)}
+.vn-play svg{width:22px;height:22px;fill:var(--text)}
+.wave{flex:1;height:32px;display:flex;align-items:center;gap:2px;min-width:0}
+.wave i{flex:1;max-width:4px;border-radius:2px;background:rgba(233,237,239,.42)}
+.wave i.on{background:var(--tick)}
+.vn-av{position:relative;width:44px;height:44px;flex:none}
+.vn-av img{width:44px;height:44px;border-radius:50%;object-fit:cover}
+.vn-av svg{position:absolute;left:-6px;bottom:-3px;width:20px;height:20px}
+.vn-meta{display:flex;justify-content:space-between;padding:2px 52px 0 52px;font-size:11.5px;color:var(--meta-out);font-variant-numeric:tabular-nums}
+.vn-meta time{position:static}
+
+/* the story: his words between the chats. three sizes: date, peak line, body */
+.chapter{padding-top:128px}
+.chapter>*+*{margin-top:28px}
+.when,.lift,.story,.clocks{max-width:36rem;margin-left:auto;margin-right:auto;padding:0 20px}
+.when{font-size:15px;line-height:1.3;font-weight:500;letter-spacing:.01em;color:var(--warm);font-variant-numeric:tabular-nums}
+.lift{font-size:clamp(28px,2.2vw + 17px,44px);line-height:1.16;font-weight:500;letter-spacing:-.018em;color:#fff;text-wrap:balance}
+.story{font-size:19px;line-height:1.62;color:var(--story)}
+.story p+p{margin-top:.85em}
+.chapter>.when+*{margin-top:14px}
+.chapter>.lift+.story{margin-top:18px}
+.chapter>.story+.lift{margin-top:40px}
+.chapter>.win+.lift,.chapter>.clip+.lift{margin-top:48px}
+
+/* the live clocks: the one big number on the page */
+.clocks{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:16px}
+.clocks p{display:flex;flex-direction:column;gap:8px}
+.clocks .big{font-size:clamp(44px,6vw + 18px,84px);white-space:nowrap;line-height:.95;font-weight:400;letter-spacing:-.04em;color:#fff;font-variant-numeric:tabular-nums}
+.clocks small{font-size:15px;font-weight:500;color:var(--warm)}
+
+/* clips: shown whole, at their own 16:9 */
+.clip{position:relative;width:min(100%,calc(100svh * 16 / 9));aspect-ratio:16/9;margin-left:auto;margin-right:auto;background:#000}
+.clip video{position:absolute;inset:0;width:100%;height:100%;object-fit:contain}
+.snd,.pp{position:absolute;right:max(12px,env(safe-area-inset-right));bottom:12px;z-index:2;width:44px;height:44px;border-radius:50%;display:grid;place-items:center;background:rgba(0,0,0,.55)}
+.pp{right:calc(max(12px,env(safe-area-inset-right)) + 52px)}
+.snd:hover,.pp:hover{background:rgba(0,0,0,.75)}
+.snd svg,.pp svg{width:22px;height:22px;fill:#fff}
+.clip .err{position:absolute;inset:auto 16px 50% 16px;text-align:center;color:#fff;font-size:15px;display:none}
+.clip.failed .err{display:block}
+
+/* photos */
+.booth{display:grid;grid-template-columns:repeat(4,1fr);gap:4px;max-width:1100px;margin-left:auto;margin-right:auto;padding:0 12px}
+.booth img{width:100%;height:auto;aspect-ratio:4/5;object-fit:cover;border-radius:6px}
+.photo{width:min(560px,calc(100% - 40px));margin-left:auto;margin-right:auto}
+.photo img{width:100%;height:auto;border-radius:10px}
+
+@media (max-width:640px){
+  .chapter{padding-top:96px}
+  .story{font-size:18px;line-height:1.6}
+  .win,.win .hdr{border-radius:0}
+  .booth{grid-template-columns:1fr 1fr}
+}
+
+/* film */
+.film{position:relative;height:100svh;background:#000;overflow:hidden}
+.film video{position:absolute;inset:0;width:100%;height:100%;object-fit:contain}
+.film-bar{position:absolute;left:0;right:0;bottom:0;display:flex;align-items:center;gap:8px;padding:48px max(16px,env(safe-area-inset-left)) max(16px,env(safe-area-inset-bottom));background:linear-gradient(transparent,rgba(0,0,0,.6))}
+.film-bar .cue{margin-left:auto;font-size:14px;color:rgba(255,255,255,.86);text-align:right;text-decoration:none;transition:color .4s var(--ease)}
+.film-bar .cue.lit{color:#fff}
+.round{width:44px;height:44px;border-radius:50%;display:grid;place-items:center;background:rgba(255,255,255,.14)}
+.round:hover{background:rgba(255,255,255,.24)}
+.round svg{width:20px;height:20px;fill:#fff}
+
+/* flipbook: photos of the two of them, one frame, faces centred */
+.flip-wrap{position:relative;height:calc(127 * 5svh + 100svh);margin-top:128px}
+.flip{position:sticky;top:0;height:100svh;overflow:hidden;background:#000}
+.flip img{position:absolute;left:50%;top:50%;height:min(86svh,calc((100vw - 24px) * 1.25));width:auto;aspect-ratio:4/5;transform:translate(-50%,-50%);border-radius:10px}
+.flip .count{position:absolute;right:max(16px,env(safe-area-inset-right));bottom:max(16px,env(safe-area-inset-bottom));font-size:14px;color:#fff;font-variant-numeric:tabular-nums;background:rgba(0,0,0,.55);padding:6px 10px;border-radius:8px}
+.flip .lead{position:absolute;left:50%;top:max(16px,env(safe-area-inset-top));transform:translateX(-50%);width:max-content;max-width:calc(100% - 32px);background:var(--note);color:var(--note-text);font-size:14px;line-height:1.45;padding:7px 12px;border-radius:8px;text-align:center;transition:opacity .4s var(--ease)}
+
+/* gate */
+#gate{position:fixed;inset:0;z-index:50;display:flex;flex-direction:column;background:var(--bg) url("doodles.svg") repeat;background-size:320px}
+#gate .thread{flex:1;width:100%;overflow-y:auto;display:flex;flex-direction:column;justify-content:flex-end;padding-bottom:12px}
+#gate.leaving{opacity:0;transition:opacity .9s var(--ease);pointer-events:none}
+.compose{background:var(--hdr);border-top:1px solid var(--line);padding:8px 12px max(8px,env(safe-area-inset-bottom))}
+.compose form{max-width:680px;margin:0 auto;display:flex;gap:8px;align-items:center}
+.compose input{flex:1;min-width:0;height:44px;border-radius:22px;border:1px solid rgba(233,237,239,.16);background:#1c1e1e;color:var(--text);font:inherit;font-size:16px;padding:0 16px}
+.compose input::placeholder{color:rgba(233,237,239,.6)}
+.compose input:focus{outline:none;border-color:var(--tick)}
+.send{width:44px;height:44px;border-radius:50%;display:grid;place-items:center;background:#21c063;flex:none}
+.send:hover{background:#25d366}
+.send svg{width:20px;height:20px;fill:#0b0c0c}
+
+main{display:none}
+main.show{display:block}
+.foot{display:none;max-width:680px;margin:0 auto;padding:96px 16px max(40px,env(safe-area-inset-bottom));font-size:13px;line-height:1.45;color:var(--meta-in);text-align:center}
+main.show+.foot{display:block}
+@media (prefers-reduced-motion:reduce){*{animation:none!important;transition:none!important}}
+</style>
+</head>
+<body>
+<script>document.documentElement.classList.add('js')</script>
+
+<!-- password gate: her phone, a chat with Honey Bear -->
+<section id="gate" aria-labelledby="gate-title">
+  <header class="hdr"><div class="hdr-in"><img class="av" src="p/hb.jpg" alt="" width="40" height="40"><div><b id="gate-title">Honey Bear <img class="emo" src="e/bear.png" alt="🐻" width="20" height="20"></b><small><span class="t-id">--.--</span> in Bandung</small></div></div></header>
+  <div class="thread" id="gate-thread" aria-live="polite">
+    <p class="chip">Today</p>
+    <div class="m in"><p>hai sayang</p><time class="t-now"></time></div>
+    <div class="m in"><p>before you open this</p><time class="t-now"></time></div>
+    <div class="m in"><p>what's our date?</p><time class="t-now"></time></div>
+  </div>
+  <div class="compose">
+    <form id="gate-form" autocomplete="off">
+      <label for="pw" class="sr">Your answer</label>
+      <input id="pw" type="text" placeholder="Message" enterkeyhint="send" autocapitalize="off" spellcheck="false">
+      <button class="send" type="submit" aria-label="Send"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M3.4 20.4 21 12 3.4 3.6 3.3 10l12.6 2-12.6 2z"/></svg></button>
+    </form>
+  </div>
+</section>
+
+<main id="main">
+  <h1 class="sr">For Kathleen, on her birthday</h1>
+
+  <section class="film" aria-label="Birthday film">
+    <video id="film" src="vid/birthday-film.mp4" poster="vid/film.jpg" playsinline preload="auto" width="1280" height="720"></video>
+    <div class="film-bar">
+      <button class="round" id="b-play" type="button" aria-label="Pause film"></button>
+      <button class="round" id="b-sound" type="button" aria-label="Mute film"></button>
+      <a class="cue" id="cue" href="#story">Scroll down after the film. There's more.</a>
+    </div>
+  </section>
+
+  <article class="chapter" id="story" aria-labelledby="c-jul">
+    <h2 class="when" id="c-jul">26 July</h2>
+    <p class="lift">The first thing you ever sent me was a message that just said “test”.</p>
+    <div class="story"><p>It was a little before eleven at night.</p></div>
+    <section class="win" aria-label="Chat with Honey Bear, 26 July">
+      <header class="hdr"><div class="hdr-in"><img class="av" src="p/hb.jpg" alt="" width="36" height="36"><b>Honey Bear <img class="emo" src="e/bear.png" alt="🐻" width="20" height="20"></b></div></header>
+      <div class="thread chat">
+        <p class="chip">26 Jul</p>
+        <p class="note">Messages and calls are end-to-end encrypted. Only people in this chat can read, listen to, or share them.</p>
+        <div class="m out"><p>test</p><time>22.43</time></div>
+        <div class="m in"><p>hellooo</p><time>23.02</time></div>
+      </div>
+    </section>
+    <div class="story">
+      <p>Three nights later we were on the phone for nine hours.</p>
+      <p>For your birthday I went back through everything we've sent each other since. It's more than thirty-five thousand messages. These are the ones I'd save if I could only keep a few.</p>
+    </div>
+  </article>
+
+  <article class="chapter" aria-labelledby="c-14aug">
+    <h2 class="when" id="c-14aug">14 August</h2>
+    <p class="lift">The night you wanted to cry, I told you I was on my way.</p>
+    <div class="story"><p>We weren't together yet. I just knew I didn't want you carrying it alone.</p></div>
+    <section class="win" aria-label="Chat with Honey Bear, 14 August">
+      <header class="hdr"><div class="hdr-in"><img class="av" src="p/hb.jpg" alt="" width="36" height="36"><b>Honey Bear <img class="emo" src="e/bear.png" alt="🐻" width="20" height="20"></b></div></header>
+      <div class="thread chat">
+        <p class="chip">14 Aug</p>
+        <div class="m in"><p>paling bener di pelukanmu</p><time>22.19</time></div>
+        <div class="m out"><p>mau nangiss dluu ahh</p><time>22.20</time></div>
+        <div class="m in"><p>bentar aku otw</p><time>22.20</time></div>
+        <div class="m out"><p>otw kmnaa</p><time>22.23</time></div>
+        <div class="m in"><p>ke kamuu</p><time>22.24</time></div>
+        <div class="m in"><p>supaya bebannya lebih ringan</p><time>22.24</time></div>
+      </div>
+    </section>
+  </article>
+
+  <article class="chapter" aria-labelledby="c-booth">
+    <h2 class="lift" id="c-booth">Our favourite ritual? A photobooth session every time we meet.</h2>
+    <div class="booth">
+      <img src="p/booth-1.jpg" alt="Steven and Kathleen pulling faces in a photobooth" width="900" height="1125" loading="lazy">
+      <img src="p/booth-2.jpg" alt="Their hands making a heart in a photobooth" width="900" height="1125" loading="lazy">
+      <img src="p/booth-3.jpg" alt="Steven kissing Kathleen on the cheek in a photo studio" width="900" height="1125" loading="lazy">
+      <img src="p/booth-4.jpg" alt="Their black and white photobooth strips" width="900" height="1125" loading="lazy">
+    </div>
+    <div class="story"><p>On the sixteenth of August you made us pick a frame, and I told you any of them would look good as long as it was with you.</p></div>
+    <figure class="clip" data-clip>
+      <video src="vid/anyframe.mp4" poster="vid/anyframe.jpg" playsinline loop preload="metadata" width="1280" height="720" aria-label="Picking a photobooth frame, 16 August"></video>
+      <button class="snd" type="button" aria-label="Turn sound on"></button>
+      <p class="err">This video didn't load. Try refreshing the page.</p>
+    </figure>
+    <figure class="clip" data-clip>
+      <video src="vid/booth.mp4" poster="vid/booth.jpg" playsinline loop preload="metadata" width="1280" height="720" aria-label="Kathleen's video at the photobooth, 19 August"></video>
+      <button class="snd" type="button" aria-label="Turn sound on"></button>
+      <p class="err">This video didn't load. Try refreshing the page.</p>
+    </figure>
+  </article>
+
+  <article class="chapter" aria-labelledby="c-17aug">
+    <h2 class="when" id="c-17aug">17 August</h2>
+    <p class="lift">You were so happy that day, and I wasn't even there. But I was happy too.</p>
+    <div class="story"><p>You went out with your friends and your mom came too. Josi came home as a surprise and you nearly cried.</p></div>
+    <section class="win" aria-label="Chat with Honey Bear, 17 August">
+      <header class="hdr"><div class="hdr-in"><img class="av" src="p/hb.jpg" alt="" width="36" height="36"><b>Honey Bear <img class="emo" src="e/bear.png" alt="🐻" width="20" height="20"></b></div></header>
+      <div class="thread chat">
+        <p class="chip">17 Aug</p>
+        <div class="m out"><p>senenggg bgt</p><time>23.10</time></div>
+        <div class="m out"><p>hari iniii</p><time>23.10</time></div>
+        <div class="m out"><p>im so happyyy</p><time>23.10</time></div>
+        <div class="m in"><p>kathleen happy aku juga happyyy</p><time>23.10</time></div>
+      </div>
+    </section>
+    <div class="story"><p>Just because you were. That night we stayed on a video call for three hours, and it still works the same way now that you're seven hours away. When you've had a good day, so have I.</p></div>
+  </article>
+
+  <article class="chapter" aria-labelledby="c-11sep">
+    <h2 class="when" id="c-11sep">11 September</h2>
+    <div class="story"><p>We were joking that neither of us really has anything yet, that it's our parents who have. So I told you I have you.</p></div>
+    <section class="win" aria-label="Chat with Honey Bear, 11 September">
+      <header class="hdr"><div class="hdr-in"><img class="av" src="p/hb.jpg" alt="" width="36" height="36"><b>Honey Bear <img class="emo" src="e/bear.png" alt="🐻" width="20" height="20"></b></div></header>
+      <div class="thread chat">
+        <p class="chip">11 Sep</p>
+        <div class="m in"><p>i have u</p><time>22.03</time></div>
+        <div class="m out"><p>i have u jg</p><time>22.03</time></div>
+        <div class="m out"><p>tapi km beneran sayang sma aku ya?</p><time>22.03</time></div>
+        <div class="m in"><p>lebih precious dari segala precious metals</p><time>22.03</time></div>
+        <div class="m in"><p>lebih indah dari segala lukisan ternama</p><time>22.04</time></div>
+        <div class="m in"><p>lebih disayang dari segala manusia</p><time>22.04</time></div>
+        <div class="m in"><p>lebih dirayakan dari semua acara</p><time>22.04</time></div>
+        <div class="m out"><p>sama siapaaa</p><time>22.05</time></div>
+        <div class="m in"><p>sama aku ATUH</p><time>22.05</time></div>
+        <div class="m in"><p>SIAPA LAGI</p><time>22.05</time></div>
+      </div>
+    </section>
+    <p class="lift">More celebrated than every event.</p>
+    <div class="story"><p>I typed that five days before we were official. Today is your birthday, so today I get to prove it.</p></div>
+  </article>
+
+  <article class="chapter" aria-labelledby="c-16sep">
+    <h2 class="when" id="c-16sep">16 September</h2>
+    <p class="lift">I woke up too early that morning.</p>
+    <div class="story"><p>I got to your house before you were ready. You saw me from upstairs and told me to wait because you were still changing. Later that day I gave you roses and told you how I felt.</p></div>
+    <figure class="clip" data-clip>
+      <video src="vid/roses.mp4" poster="vid/roses.jpg" playsinline loop preload="metadata" width="1280" height="720" aria-label="Kathleen with the roses, 16 September"></video>
+      <button class="snd" type="button" aria-label="Turn sound on"></button>
+      <p class="err">This video didn't load. Try refreshing the page.</p>
+    </figure>
+    <section class="win" aria-label="Chat with Honey Bear, 16 September">
+      <header class="hdr"><div class="hdr-in"><img class="av" src="p/hb.jpg" alt="" width="36" height="36"><b>Honey Bear <img class="emo" src="e/bear.png" alt="🐻" width="20" height="20"></b></div></header>
+      <div class="thread chat">
+        <p class="chip">16 Sep</p>
+        <div class="m out"><p>sayang makasiii yaaa for todayyy</p><time>19.26</time></div>
+        <div class="m out"><p>im so happyy</p><time>19.26</time></div>
+      </div>
+    </section>
+    <figure class="clip" data-clip>
+      <video src="vid/happy.mp4" poster="vid/happy.jpg" playsinline loop preload="metadata" width="1280" height="720" aria-label="Kathleen's video that night: I got flowers too, I'm so happy"></video>
+      <button class="snd" type="button" aria-label="Turn sound on"></button>
+      <p class="err">This video didn't load. Try refreshing the page.</p>
+    </figure>
+    <div class="story"><p>That night I made a photo of us my lock screen, and you replied with a keyboard smash. Then you started apologising. You said you weren't perfect and you weren't my dream girl.</p></div>
+    <section class="win" aria-label="Chat with Honey Bear, 16 September, night">
+      <header class="hdr"><div class="hdr-in"><img class="av" src="p/hb.jpg" alt="" width="36" height="36"><b>Honey Bear <img class="emo" src="e/bear.png" alt="🐻" width="20" height="20"></b></div></header>
+      <div class="thread chat">
+        <div class="m out"><p>sorry yaaa</p><time>22.54</time></div>
+        <div class="m out"><p>aku ga sempurna</p><time>22.55</time></div>
+        <div class="m in"><p>GAUSAH SORRY SORRRYYYY WEY</p><time>22.55</time></div>
+        <div class="m in"><p>KAMU UDAH SEMPURNA BUAT AKU</p><time>22.55</time></div>
+        <div class="m out"><p>JDI</p><time>23.00</time></div>
+        <div class="m out"><p>GW TAKEN YA</p><time>23.00</time></div>
+        <div class="m out"><p>SKRG</p><time>23.00</time></div>
+        <div class="m out"><p>?????</p><time>23.00</time></div>
+        <div class="m in"><p>IYA WOI</p><time>23.00</time></div>
+        <div class="m out"><p>beneran ya ini teh</p><time>23.00</time></div>
+        <div class="m out"><p>udh taken</p><time>23.00</time></div>
+        <div class="m out"><p>ga expect</p><time>23.01</time></div>
+        <div class="m out vn" data-src="audio/vn-0916.m4a" data-dur="4.2" data-bars="1.00,0.89,0.74,0.12,0.12,0.18,0.71,0.17,0.12,0.12,0.35,1.00,1.00,0.86,0.95,1.00,0.95,0.85,0.37,0.88,0.22,1.00,0.98,0.12,0.94,1.00,0.71,0.34"><time>23.06</time></div>
+        <div class="m in"><p>sweet dreamsss yaaa sayangku cintaku princessku</p><time>23.12</time></div>
+        <div class="m out"><p>sweet dreamsss my calon suami gue</p><time>23.12</time></div>
+      </div>
+    </section>
+    <p class="lift">You were taken, and you still are.</p>
+    <div class="story"><p>That same night you called me your future husband, and I'm going to hold you to it.</p></div>
+  </article>
+
+  <article class="chapter" aria-labelledby="c-18sep">
+    <h2 class="when" id="c-18sep">18 September</h2>
+    <p class="lift">Two days later, I went to the airport with you and your family.</p>
+    <figure class="photo"><img src="p/family.jpg" alt="Steven taking a selfie with Kathleen and her family under the International Departures sign, 18 September" width="1200" height="1600" loading="lazy"></figure>
+    <section class="win" aria-label="Chat with Honey Bear, 18 September">
+      <header class="hdr"><div class="hdr-in"><img class="av" src="p/hb.jpg" alt="" width="36" height="36"><b>Honey Bear <img class="emo" src="e/bear.png" alt="🐻" width="20" height="20"></b></div></header>
+      <div class="thread chat">
+        <p class="chip">18 Sep</p>
+        <div class="m out"><p>maakasii sayangg see uu</p><time>18.06</time></div>
+        <div class="m out"><p>in 2 yearsss</p><time>18.06</time></div>
+        <div class="m in"><p>SAFE FLIGHT AYAA SAYAANG</p><time>18.06</time></div>
+        <div class="m in"><p>aku nahan nangis</p><time>18.06</time></div>
+        <div class="m out"><p>aku sayang km</p><time>18.07</time></div>
+        <div class="m out"><p>jaga diri baik" yaaa</p><time>18.07</time></div>
+        <div class="m in"><p>jangan lupain akuu</p><time>18.08</time></div>
+        <div class="m out"><p>telfon 24/7</p><time>18.08</time></div>
+        <div class="m in"><p>jangan lupa ketawa ya</p><time>18.09</time></div>
+        <div class="m out"><p>iyaaa</p><time>18.09</time></div>
+        <div class="m out"><p>pasti</p><time>18.09</time></div>
+      </div>
+    </section>
+    <div class="story"><p>You wrote see you in 2 years with three s's, like it was nothing. I was holding back tears and I told you so. I asked you not to forget me, and not to forget to laugh, and you promised.</p></div>
+  </article>
+
+  <article class="chapter" aria-labelledby="c-19sep">
+    <h2 class="when" id="c-19sep">19 September</h2>
+    <div class="story"><p>Afterwards I took your mom and your brother home and recorded you a video on the way.</p></div>
+    <figure class="clip" data-clip>
+      <video src="vid/carmsg.mp4" poster="vid/carmsg.jpg" playsinline loop preload="metadata" width="1292" height="720" aria-label="Steven's video message on the way home, 19 September"></video>
+      <button class="snd" type="button" aria-label="Turn sound on"></button>
+      <p class="err">This video didn't load. Try refreshing the page.</p>
+    </figure>
+    <div class="story"><p>When I got home I opened your present: a fluffy white dog to hug when I miss you, and two photobooth strips of you.</p></div>
+    <section class="win" aria-label="Chat with Honey Bear, 19 September">
+      <header class="hdr"><div class="hdr-in"><img class="av" src="p/hb.jpg" alt="" width="36" height="36"><b>Honey Bear <img class="emo" src="e/bear.png" alt="🐻" width="20" height="20"></b></div></header>
+      <div class="thread chat">
+        <p class="chip">19 Sep</p>
+        <div class="m in pic"><img src="p/gift.jpg" alt="The white plush dog she left him, with two of her photobooth strips" width="900" height="1200" loading="lazy"><p>AAAAA MAKASI BANYAK KADONYAAAA SAYAAANGGGGG</p><time>01.06</time></div>
+        <div class="m in"><p>love you so muchhh</p><time>01.06</time></div>
+        <div class="m in"><p>aku bisa meluk dia kalau lg kangen</p><time>01.06</time></div>
+        <div class="m in"><p>woi aku nangis terus</p><time>01.06</time></div>
+        <div class="m in"><p>kayanya aku jg udah terlalu sayang juga sm kamu</p><time>01.07</time></div>
+        <div class="m in"><p>jangan berubah</p><time>01.08</time></div>
+        <div class="m in"><p>jangan lupa inget akuu di rumah (Bandung)</p><time>01.08</time></div>
+        <div class="m in"><p>gini ya rasanya LDR teh</p><time>01.08</time></div>
+        <div class="m out"><p>aku sayang kamu banget</p><time>02.12</time></div>
+      </div>
+    </section>
+    <div class="story"><p>I told you I should have cried properly while you were still here, so at least I could have hugged you while I did. I cried until my head and my throat hurt. You held yours in the whole flight. At two in the morning you messaged me from your transit.</p></div>
+    <p class="lift">That was our first night in different time zones.</p>
+  </article>
+
+  <article class="chapter" aria-labelledby="c-now">
+    <h2 class="when" id="c-now">Right now</h2>
+    <p class="lift">We live seven hours apart.</p>
+    <div class="clocks">
+      <p><span class="big t-ie">--:--</span><small>for you, in Ireland</small></p>
+      <p><span class="big t-id">--:--</span><small>for me, in Bandung</small></p>
+    </div>
+    <div class="story"><p>When I'm going to sleep it's still afternoon for you, and by the time you wake up I'm halfway through my day. We've spent more than a hundred hours on calls since you left, and that's only counting WhatsApp.</p></div>
+  </article>
+
+  <article class="chapter" aria-labelledby="c-30oct">
+    <h2 class="when" id="c-30oct">30 October</h2>
+    <div class="story"><p>I had an exam I was nervous about. It was four in the morning in Ireland, you were still up talking to your mom, and you told me to pray.</p></div>
+    <p class="lift">Then you asked me something you already knew the answer to.</p>
+    <section class="win" aria-label="Chat with Honey Bear, 30 October">
+      <header class="hdr"><div class="hdr-in"><img class="av" src="p/hb.jpg" alt="" width="36" height="36"><b>Honey Bear <img class="emo" src="e/bear.png" alt="🐻" width="20" height="20"></b></div></header>
+      <div class="thread chat">
+        <p class="chip">30 Oct</p>
+        <div class="m out"><p>km syg ak g</p><time>12.00</time></div>
+        <div class="m out"><p>jwbb</p><time>12.00</time></div>
+        <div class="m in"><p>sayaaaang bangeeeeett doooong</p><time>12.00</time></div>
+        <div class="m out vn" data-src="audio/vn-1030.m4a" data-dur="13.2" data-bars="0.95,0.95,0.91,0.92,0.84,0.62,0.12,0.82,0.80,0.88,0.18,0.25,0.20,0.12,0.83,0.38,0.78,1.00,0.76,0.26,0.66,1.00,0.94,0.89,0.90,0.69,0.79,0.12"><time>12.02</time></div>
+      </div>
+    </section>
+    <div class="story"><p>You ask me that a lot. I'll keep answering with too many letters for as long as you keep asking. You also told me that next time I see you I owe you a twenty-four hour hug, and I'm not allowed to let go. I'm ready.</p></div>
+  </article>
+
+  <article class="chapter" aria-labelledby="c-9nov">
+    <h2 class="when" id="c-9nov">9 November</h2>
+    <div class="story"><p>I was testing a new mic in my new house and made you say hi to the camera. You introduced yourself as my friend, so I corrected you.</p></div>
+    <figure class="clip" data-clip>
+      <video src="vid/lovers.mp4" poster="vid/lovers.jpg" playsinline loop preload="metadata" width="1280" height="720" aria-label="Kathleen on a video call introducing herself as Steven's girlfriend, 9 November"></video>
+      <button class="snd" type="button" aria-label="Turn sound on"></button>
+      <p class="err">This video didn't load. Try refreshing the page.</p>
+    </figure>
+    <p class="lift">You got it right on the second try.</p>
+    <div class="story"><p>Then you called me your honey bear, and I called you my honey bunny.</p></div>
+  </article>
+
+  <section class="flip-wrap" id="flipwrap" aria-label="Photos of Kathleen and Steven">
+    <div class="flip">
+      <img id="ff" alt="A photo of Kathleen and Steven" width="900" height="1125">
+      <p class="lead" id="fl">Every photo of us since July. Keep scrolling.</p>
+      <p class="count" id="fc">1 of 127</p>
+    </div>
+  </section>
+
+  <article class="chapter" aria-labelledby="c-27nov">
+    <h2 class="when" id="c-27nov">27 November</h2>
+    <p class="lift">Midnight for you is seven in the morning for me.</p>
+    <div class="story">
+      <p>So my day started with your birthday.</p>
+      <p>The first flowers I gave you were the roses on the sixteenth of September. I couldn't hand you today's myself, so I made you all of this to go with them.</p>
+      <p>This year I hope Ireland is kind to you and campus goes well. Please eat on time. I'll keep reminding you anyway. Keep laughing like you promised me at the airport, and stop saying sorry for being you.</p>
+    </div>
+    <p class="lift">You were already perfect for me on the night you asked if you were taken.</p>
+    <div class="story"><p>I'm proud of you for starting over so far from home, and I miss you a lot. Next time I see you we're going straight to a photobooth, and after that you get your twenty-four hour hug.</p></div>
+    <section class="win" aria-label="Chat with Honey Bear, today">
+      <header class="hdr"><div class="hdr-in"><img class="av" src="p/hb.jpg" alt="" width="36" height="36"><b>Honey Bear <img class="emo" src="e/bear.png" alt="🐻" width="20" height="20"></b></div></header>
+      <div class="thread chat">
+        <p class="chip">Today</p>
+        <div class="m in"><p>happy birthday sayangku cintaku princessku</p><time class="t-now"></time></div>
+        <div class="m in"><p>love you so muchhh</p><time class="t-now"></time></div>
+      </div>
+    </section>
+  </article>
+</main>
+<footer class="foot"><p>Music in the film: Caraku Caramu by Teddy Adhitya. Every photo, video, voice note and message here is ours.</p></footer>
+
+<script>
+(function(){
+  const $=s=>document.querySelector(s), $$=s=>Array.from(document.querySelectorAll(s));
+  const reduce=matchMedia('(prefers-reduced-motion: reduce)').matches;
+  const wait=ms=>new Promise(r=>setTimeout(r,reduce?0:ms));
+  const toggle=m=>{ if(m.paused){ const p=m.play(); if(p) p.catch(()=>{}); } else m.pause(); };
+  const ICON={
+    play:'<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M8 5v14l11-7z"/></svg>',
+    pause:'<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M7 5h3v14H7zM14 5h3v14h-3z"/></svg>',
+    soundOn:'<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 9h4l5-4v14l-5-4H4z"/><path d="M16 8.5a5 5 0 0 1 0 7M18.5 6a8.5 8.5 0 0 1 0 12" stroke="#fff" stroke-width="1.8" fill="none" stroke-linecap="round"/></svg>',
+    soundOff:'<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 9h4l5-4v14l-5-4H4z"/><path d="M16.5 9.5l5 5M21.5 9.5l-5 5" stroke="#fff" stroke-width="1.8" fill="none" stroke-linecap="round"/></svg>'
+  };
+
+  // clocks: her time (Ireland) and his (Bandung)
+  const fmt=tz=>new Intl.DateTimeFormat('en-GB',{hour:'2-digit',minute:'2-digit',timeZone:tz}).format(new Date()).replace(':','.');
+  function clocks(){ const ie=fmt('Europe/Dublin'), id=fmt('Asia/Jakarta');
+    const t=(e,v)=>e.textContent=e.closest('.clocks')?v.replace('.',':'):v; // the big clocks read 12:00
+    $$('.t-ie').forEach(e=>t(e,ie)); $$('.t-id').forEach(e=>t(e,id)); }
+  $$('.t-now').forEach(e=>e.textContent=fmt('Europe/Dublin'));
+  clocks(); setInterval(clocks,15000);
+
+  // first and last bubble of each run from the same person
+  function group(root){
+    const kids=Array.from(root.children);
+    kids.forEach((el,i)=>{ if(!el.classList.contains('m')) return;
+      const side=el.classList.contains('out')?'out':'in';
+      const same=x=>x&&x.classList.contains('m')&&x.classList.contains(side);
+      el.classList.toggle('first',!same(kids[i-1])); el.classList.toggle('last',!same(kids[i+1])); });
+  }
+  $$('.thread').forEach(group);
+
+  // the real WhatsApp sound, through Web Audio so it can overlap and stay quiet
+  let actx=null, buf=null;
+  function audioInit(){
+    try{
+      if(!actx){ actx=new (window.AudioContext||window.webkitAudioContext)();
+        fetch('audio/wa.m4a').then(r=>r.arrayBuffer()).then(b=>actx.decodeAudioData(b)).then(d=>{buf=d;}).catch(()=>{}); }
+      if(actx.state==='suspended') actx.resume();
+    }catch(_){}
+  }
+  function ding(gain){ if(!actx||!buf||actx.state!=='running') return;
+    const s=actx.createBufferSource(), g=actx.createGain(); g.gain.value=gain; s.buffer=buf; s.connect(g).connect(actx.destination); s.start(); }
+  ['pointerdown','keydown'].forEach(ev=>addEventListener(ev,audioInit,{passive:true}));
+
+  // one sound source at a time for media
+  let current=null;
+  function claim(media){ if(current&&current!==media&&!current.paused) current.pause(); current=media; }
+
+  // film
+  const film=$('#film'), bp=$('#b-play'), bs=$('#b-sound'), cue=$('#cue');
+  function syncFilm(){ bp.innerHTML=film.paused?ICON.play:ICON.pause; bp.setAttribute('aria-label',film.paused?'Play film':'Pause film');
+    bs.innerHTML=film.muted?ICON.soundOff:ICON.soundOn; bs.setAttribute('aria-label',film.muted?'Turn film sound on':'Mute film'); }
+  ['play','pause','ended','volumechange'].forEach(e=>film.addEventListener(e,syncFilm));
+  film.addEventListener('play',()=>claim(film));
+  bp.onclick=()=>toggle(film);
+  bs.onclick=()=>{ film.muted=!film.muted; };
+  film.onclick=()=>toggle(film);
+  film.addEventListener('ended',()=>{ cue.classList.add('lit'); $('#story').scrollIntoView({behavior:reduce?'auto':'smooth'}); });
+  syncFilm();
+
+  // gate
+  const gate=$('#gate'), form=$('#gate-form'), pw=$('#pw'), gt=$('#gate-thread'), main=$('#main');
+  const ok=v=>['16september','september16','16sept','sept16','16sep','sep16','1609','0916','16092026','160926','16september2026','16sep2026'].includes(v.toLowerCase().replace(/(st|nd|rd|th)\b/g,'').replace(/[^a-z0-9]/g,''));
+  const replies=['bukan sayang, coba lagi','hint: the day of the roses','september, sayang'];
+  let tries=0, opened=false;
+  function bubble(side,text){ const d=document.createElement('div'); d.className='m '+side+' shown';
+    d.innerHTML='<p></p><time></time>'; d.querySelector('p').textContent=text; d.querySelector('time').textContent=fmt('Europe/Dublin');
+    gt.appendChild(d); group(gt); gt.scrollTop=gt.scrollHeight; return d; }
+  async function reply(text){ const d=bubble('in',text); d.classList.add('typing'); d.setAttribute('aria-hidden','true'); gt.scrollTop=gt.scrollHeight;
+    await wait(900); d.classList.remove('typing'); d.removeAttribute('aria-hidden'); ding(.55); }
+  function open(){
+    if(opened) return; opened=true;
+    main.classList.add('show');
+    initChats(); initClips(); initVoice(); initFlip();
+    setTimeout(()=>cue.classList.add('lit'),10000);
+  }
+  const blocked=e=>e&&e.name==='NotAllowedError'; // autoplay with sound refused; anything else (a pause during load) is not a reason to mute
+  function startFilm(withSound){ film.muted=!withSound; film.play().catch(e=>{ if(!blocked(e)) return; film.muted=true; film.play().catch(()=>{}); }); }
+  form.addEventListener('submit',async e=>{
+    e.preventDefault(); const v=pw.value.trim(); if(!v) return;
+    audioInit(); bubble('out',v); ding(.3); pw.value='';
+    if(ok(v)){
+      try{sessionStorage.setItem('kb','1')}catch(_){}
+      open();
+      film.muted=false; // unlock sound inside the tap, then hold the film until the gate fades
+      film.play().then(()=>{ film.pause(); film.currentTime=0; }).catch(()=>{});
+      await reply('yes. happy birthday sayang');
+      await wait(700); gate.classList.add('leaving'); startFilm(true); setTimeout(()=>gate.remove(),900);
+    } else { await reply(replies[Math.min(tries++,replies.length-1)]); }
+  });
+  try{ if(sessionStorage.getItem('kb')==='1'){ gate.remove(); open(); startFilm(false); } }catch(_){}
+  if(document.body.contains(gate)) pw.focus({preventScroll:true});
+
+  // messages arrive one by one, in order, as each scrolls into view
+  function initChats(){
+    const all=$$('.win .chat .m');
+    if(reduce){ all.forEach(m=>m.classList.add('shown')); return; }
+    all.forEach(m=>m.classList.add('wait'));
+    const queue=[]; let busy=false;
+    const onScreen=m=>{ const r=m.getBoundingClientRect(); return r.bottom>0&&r.top<innerHeight; };
+    async function show(m){
+      if(!onScreen(m)){ m.classList.replace('wait','shown'); return; } // scrolled past: no typing, no sound
+      if(m.classList.contains('in')){ m.classList.add('typing'); m.classList.replace('wait','shown'); await wait(700); m.classList.remove('typing'); ding(.5); await wait(320); }
+      else { await wait(380); m.classList.replace('wait','shown'); ding(.28); await wait(260); }
+    }
+    async function run(){ if(busy) return; busy=true; while(queue.length) await show(queue.shift()); busy=false; }
+    const io=new IntersectionObserver(es=>{
+      es.forEach(en=>{ if(!en.isIntersecting) return;
+        const left=Array.from(en.target.closest('.chat').querySelectorAll('.m.wait')).filter(m=>!m.dataset.q);
+        for(const m of left){ m.dataset.q='1'; io.unobserve(m); queue.push(m); if(m===en.target) break; }
+      });
+      run();
+    },{rootMargin:'0px 0px -12% 0px'});
+    all.forEach(m=>io.observe(m));
+  }
+
+  // clips: shown whole, play while on screen, with sound when the browser allows it
+  let soundOK=true;
+  function initClips(){
+    $$('[data-clip]').forEach(fig=>{
+      const v=fig.querySelector('video'), b=fig.querySelector('.snd');
+      const pp=document.createElement('button'); pp.type='button'; pp.className='pp'; b.before(pp);
+      const sync=()=>{ b.innerHTML=v.muted?ICON.soundOff:ICON.soundOn; b.setAttribute('aria-label',v.muted?'Turn sound on':'Mute');
+        pp.innerHTML=v.paused?ICON.play:ICON.pause; pp.setAttribute('aria-label',v.paused?'Play video':'Pause video'); };
+      ['volumechange','play','pause'].forEach(e=>v.addEventListener(e,sync)); v.addEventListener('play',()=>claim(v));
+      v.addEventListener('error',()=>fig.classList.add('failed'));
+      pp.onclick=()=>toggle(v);
+      b.onclick=()=>{ v.muted=!v.muted; if(!v.muted){ soundOK=true; v.play().catch(()=>{}); } };
+      v.onclick=()=>toggle(v);
+      sync();
+    });
+    if(reduce) return;
+    const io=new IntersectionObserver(es=>es.forEach(en=>{
+      const v=en.target.querySelector('video');
+      if(en.isIntersecting){ v.currentTime=0; v.muted=!soundOK; v.play().catch(e=>{ if(!blocked(e)) return; v.muted=true; soundOK=false; v.play().catch(()=>{}); }); }
+      else if(!v.paused) v.pause();
+    }),{threshold:.6});
+    $$('[data-clip]').forEach(f=>io.observe(f));
+    new IntersectionObserver(es=>es.forEach(en=>{ if(!en.isIntersecting&&!film.paused) film.pause(); }),{threshold:.25}).observe(film);
+  }
+
+  // her voice notes
+  function initVoice(){
+    $$('.vn').forEach(el=>{
+      const bars=el.dataset.bars.split(',').map(Number), dur=+el.dataset.dur, t=el.querySelector('time');
+      const len=Math.round(dur), label=`0:${String(len).padStart(2,'0')}`;
+      el.insertAdjacentHTML('afterbegin',`<div class="vn-row"><button class="vn-play" type="button" aria-label="Play voice note, ${len} seconds">${ICON.play}</button><div class="wave" aria-hidden="true">${bars.map(b=>`<i style="height:${Math.round(6+b*26)}px"></i>`).join('')}</div><span class="vn-av"><img src="p/s10.jpg" alt="" width="44" height="44"><svg viewBox="0 0 20 20" aria-hidden="true"><circle cx="10" cy="10" r="10" fill="#144d37"/><rect x="7.5" y="4" width="5" height="8" rx="2.5" fill="#53bdeb"/><path d="M5.5 9.5a4.5 4.5 0 0 0 9 0M10 14v2" stroke="#53bdeb" stroke-width="1.4" fill="none" stroke-linecap="round"/></svg></span></div><div class="vn-meta"><span class="el">${label}</span></div>`);
+      el.querySelector('.vn-meta').appendChild(t);
+      const btn=el.querySelector('.vn-play'), is=el.querySelectorAll('.wave i'), el2=el.querySelector('.el');
+      let a=null;
+      btn.onclick=()=>{
+        if(!a){ a=new Audio(el.dataset.src); a.preload='auto';
+          a.addEventListener('play',()=>{ claim(a); btn.innerHTML=ICON.pause; btn.setAttribute('aria-label','Pause voice note'); });
+          a.addEventListener('pause',()=>{ btn.innerHTML=ICON.play; btn.setAttribute('aria-label',`Play voice note, ${len} seconds`); });
+          a.addEventListener('timeupdate',()=>{ const p=a.currentTime/(a.duration||dur); is.forEach((x,i)=>x.classList.toggle('on',i/is.length<p)); el2.textContent=`0:${String(Math.floor(a.currentTime)).padStart(2,'0')}`; });
+          a.addEventListener('ended',()=>{ is.forEach(x=>x.classList.remove('on')); el2.textContent=label; });
+          a.addEventListener('error',()=>{ el2.textContent="couldn't load"; });
+        }
+        if(a.paused){ audioInit(); a.play().catch(()=>{ el2.textContent='tap again'; }); } else a.pause();
+      };
+    });
+  }
+
+  // flipbook: photos of the two of them, driven by the scroll
+  function initFlip(){
+    const N=127, wrap=$('#flipwrap'), img=$('#ff'), cnt=$('#fc'), lead=$('#fl');
+    const src=i=>'us/'+String(i).padStart(3,'0')+'.jpg', cache=[];
+    const pre=i=>{ for(let k=i;k<Math.min(N,i+10);k++) if(!cache[k]){ cache[k]=new Image(); cache[k].src=src(k); } };
+    let cur=-1, ticking=false;
+    function show(i){ if(i===cur) return; cur=i; img.src=src(i); cnt.textContent=`${i+1} of ${N}`; lead.style.opacity=i<4?1:0; pre(i); }
+    function onScroll(){ ticking=false; const r=wrap.getBoundingClientRect(), span=r.height-innerHeight;
+      show(Math.min(N-1,Math.max(0,Math.floor(-r.top/span*N)))); }
+    pre(0); show(0);
+    addEventListener('scroll',()=>{ if(!ticking){ ticking=true; requestAnimationFrame(onScroll); } },{passive:true});
+  }
+})();
+</script>
+</body>
+</html>
