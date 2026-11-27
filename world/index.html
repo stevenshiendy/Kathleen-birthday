@@ -201,7 +201,8 @@ form.addEventListener('submit',async e=>{
     await wait(700); filmwrap.classList.add('show'); gate.classList.add('leaving'); startFilm(true); setTimeout(()=>gate.remove(),900);
   } else { await reply(replies[Math.min(tries++,replies.length-1)]); }
 });
-try{ if(sessionStorage.getItem('kb')==='1'){ gate.remove(); filmwrap.classList.add('show'); startFilm(false); } }catch(_){}
+const walkNow=new URLSearchParams(location.search).has('walk'); // arrived from the main page after the film
+try{ if(sessionStorage.getItem('kb')==='1'){ gate.remove(); if(walkNow) setTimeout(()=>enterWorld(),0); else { filmwrap.classList.add('show'); startFilm(false); } } }catch(_){}
 if(document.body.contains(gate)) pw.focus({preventScroll:true});
 
 // ---------- the world ----------

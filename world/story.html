@@ -533,7 +533,10 @@ main.show+.foot{display:block}
   bp.onclick=()=>toggle(film);
   bs.onclick=()=>{ film.muted=!film.muted; };
   film.onclick=()=>toggle(film);
-  film.addEventListener('ended',()=>{ cue.classList.add('lit'); $('#story').scrollIntoView({behavior:reduce?'auto':'smooth'}); });
+  // on the main link the walk comes next, whether the film ends or she skips it; inside /world/ this page is the one-page read
+  const inWorld=/\/world\//.test(location.pathname), WALK='world/?walk=1';
+  if(!inWorld){ cue.textContent='Skip the film'; cue.setAttribute('href',WALK); }
+  film.addEventListener('ended',()=>{ if(!inWorld){ location.href=WALK; return; } cue.classList.add('lit'); $('#story').scrollIntoView({behavior:reduce?'auto':'smooth'}); });
   syncFilm();
 
   // gate
