@@ -1,0 +1,127 @@
+<!doctype html>
+<html><head><meta charset="utf-8">
+<title>Kathleen Stories</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,500;0,700;1,400;1,500&family=Caveat:wght@500;700&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+*{box-sizing:border-box;margin:0;padding:0}
+body{background:#222;display:flex;flex-wrap:wrap;gap:40px;padding:40px}
+.s{width:1080px;height:1920px;position:relative;overflow:hidden;flex:none}
+img{display:block}
+.serif{font-family:"Playfair Display",Georgia,serif}
+.hand{font-family:"Caveat",cursive}
+.sans{font-family:Inter,sans-serif}
+.spark{position:absolute}
+
+/* 1 — cover */
+#s1{background:#f4ede2;color:#3a2a20}
+#s1 .grain{position:absolute;inset:0;background:radial-gradient(1200px 900px at 50% 40%,#fbf6ee 0,#f4ede2 60%,#ead9c4 100%)}
+#s1 .top{position:absolute;top:300px;width:100%;text-align:center;font-size:34px;letter-spacing:.42em;text-transform:uppercase;color:#a8794a}
+#s1 .arch{position:absolute;left:210px;top:390px;width:660px;height:820px;border-radius:330px 330px 24px 24px;overflow:hidden;box-shadow:0 30px 80px rgba(90,60,30,.25)}
+#s1 .arch img{width:100%;height:100%;object-fit:cover;object-position:50% 30%}
+#s1 .ring{position:absolute;left:186px;top:366px;width:708px;height:868px;border-radius:354px 354px 40px 40px;border:3px solid #c99a5b}
+#s1 h2{position:absolute;top:1275px;width:100%;text-align:center;line-height:.9}
+#s1 h2 .a{display:block;font-size:180px;font-style:italic;font-weight:400;color:#3a2a20}
+#s1 h2 .b{display:block;font-size:110px;font-weight:500;letter-spacing:.06em;text-transform:uppercase;color:#3a2a20;margin-top:6px}
+#s1 .name{position:absolute;top:1525px;width:100%;text-align:center;font-size:150px;color:#b5703b;transform:rotate(-4deg)}
+
+/* 2 — photobooth */
+#s2{background:#8f1d22;color:#fff3e6}
+#s2 .bg{position:absolute;inset:0;background:radial-gradient(900px 1200px at 30% 30%,#b0282d 0,#8f1d22 55%,#5f1014 100%)}
+#s2 .strip{position:absolute;left:120px;top:250px;width:470px;padding:28px 28px 90px;background:#111;transform:rotate(-5deg);box-shadow:0 40px 90px rgba(0,0,0,.45)}
+#s2 .strip img{width:414px;height:470px;object-fit:cover;filter:grayscale(1) contrast(1.08);margin-bottom:22px}
+#s2 .strip img:last-of-type{margin-bottom:0}
+#s2 .strip .lbl{position:absolute;bottom:26px;left:0;width:100%;text-align:center;font-size:30px;letter-spacing:.3em;color:#ddd}
+#s2 .txt{position:absolute;right:70px;top:500px;width:420px;text-align:right}
+#s2 .txt .k{white-space:nowrap;font-size:34px;letter-spacing:.32em;text-transform:uppercase;color:#f7c9a4}
+#s2 .txt .big{font-size:128px;font-style:italic;line-height:.95;margin-top:28px}
+#s2 .txt .h{font-size:92px;color:#ffd9b8;margin-top:40px;line-height:1;transform:rotate(-3deg)}
+#s2 .foot{position:absolute;bottom:300px;right:90px;width:420px;text-align:right;font-size:36px;line-height:1.5;color:#f7d7c2}
+
+/* 3 — polaroids */
+#s3{background:#f6dcd6;color:#4a2530}
+#s3 .bg{position:absolute;inset:0;background:radial-gradient(1000px 1000px at 50% 50%,#fbe9e4 0,#f6dcd6 60%,#eec3bb 100%)}
+#s3 .head{position:absolute;top:270px;width:100%;text-align:center}
+#s3 .head .l1{font-size:40px;letter-spacing:.35em;text-transform:uppercase;color:#b0566a}
+#s3 .head .l2{font-size:120px;font-style:italic;line-height:1;margin-top:20px}
+.pol{position:absolute;background:#fffdf9;padding:24px 24px 0;box-shadow:0 24px 50px rgba(110,40,50,.22)}
+.pol img{width:380px;height:400px;object-fit:cover}
+.pol p{font-family:"Caveat",cursive;font-size:56px;text-align:center;height:100px;line-height:100px;color:#4a2530}
+#s3 .p1{left:80px;top:530px;transform:rotate(-7deg)}
+#s3 .p2{left:560px;top:510px;transform:rotate(6deg)}
+#s3 .p3{left:100px;top:1040px;transform:rotate(4deg)}
+#s3 .p4{left:580px;top:1010px;transform:rotate(-5deg)}
+#s3 .tape{position:absolute;width:150px;height:46px;background:rgba(255,255,255,.55);top:-20px;left:50%;margin-left:-75px;transform:rotate(-4deg)}
+#s3 .end{position:absolute;bottom:260px;width:100%;text-align:center;font-size:86px;color:#b0566a;transform:rotate(-2deg)}
+
+/* 4 — chat */
+#s4{background:#0b0c0c;color:#e9edef}
+#s4 .glow{position:absolute;inset:0;background:radial-gradient(900px 700px at 50% 22%,rgba(230,166,95,.22),transparent 70%)}
+#s4 .av{position:absolute;left:340px;top:280px;width:400px;height:400px;border-radius:50%;overflow:hidden;border:6px solid #e6a65f}
+#s4 .av img{width:100%;height:100%;object-fit:cover;object-position:50% 35%}
+#s4 .date{position:absolute;top:725px;width:100%;text-align:center}
+#s4 .date span{display:inline-block;background:#1c1e1e;color:#cdd1d3;font-size:30px;padding:12px 30px;border-radius:14px;letter-spacing:.04em}
+#s4 .chat{position:absolute;top:810px;left:70px;right:70px;display:flex;flex-direction:column;gap:22px;font-family:-apple-system,"Helvetica Neue",Inter,sans-serif}
+.m{max-width:760px;padding:22px 30px 18px;border-radius:30px;font-size:46px;line-height:1.3;position:relative}
+.m time{display:block;text-align:right;font-size:26px;opacity:.7;margin-top:6px}
+.m.in{align-self:flex-start;background:#242626;border-top-left-radius:8px}
+.m.out{align-self:flex-end;background:#144d37;border-top-right-radius:8px}
+#s4 .hb{position:absolute;bottom:240px;width:100%;text-align:center}
+#s4 .hb .a{font-size:118px;font-style:italic;line-height:1}
+#s4 .hb .b{font-size:130px;color:#e6a65f;margin-top:4px}
+</style></head><body>
+
+<!-- 1 -->
+<section class="s" id="s1">
+  <div class="grain"></div>
+  <div class="top sans">— today we celebrate —</div>
+  <div class="ring"></div>
+  <div class="arch"><img src="../us/028.jpg" alt=""></div>
+  <h2 class="serif"><span class="a">Happy</span><span class="b">Birthday</span></h2>
+  <div class="name hand">Kathleen</div>
+  <svg class="spark" style="left:110px;top:520px" width="70" height="70" viewBox="0 0 24 24"><path d="M12 0c1 7 5 11 12 12c-7 1-11 5-12 12c-1-7-5-11-12-12c7-1 11-5 12-12z" fill="#c99a5b"/></svg>
+  <svg class="spark" style="left:910px;top:430px" width="48" height="48" viewBox="0 0 24 24"><path d="M12 0c1 7 5 11 12 12c-7 1-11 5-12 12c-1-7-5-11-12-12c7-1 11-5 12-12z" fill="#c99a5b"/></svg>
+  <svg class="spark" style="left:930px;top:1180px" width="60" height="60" viewBox="0 0 24 24"><path d="M12 0c1 7 5 11 12 12c-7 1-11 5-12 12c-1-7-5-11-12-12c7-1 11-5 12-12z" fill="#c99a5b"/></svg>
+</section>
+
+<!-- 2 -->
+<section class="s" id="s2">
+  <div class="bg"></div>
+  <div class="strip">
+    <img src="../us/006.jpg" alt=""><img src="../us/005.jpg" alt=""><img src="../us/008.jpg" alt="">
+    <div class="lbl sans">K &amp; S</div>
+  </div>
+  <div class="txt">
+    <div class="k sans">It's her day</div>
+    <div class="big serif">birthday girl</div>
+    <div class="h hand">♡ my favourite</div>
+  </div>
+  <div class="foot sans">Happy birthday to the one who makes every photo booth worth it.</div>
+  <svg class="spark" style="left:640px;top:330px" width="64" height="64" viewBox="0 0 24 24"><path d="M12 0c1 7 5 11 12 12c-7 1-11 5-12 12c-1-7-5-11-12-12c7-1 11-5 12-12z" fill="#ffd9b8"/></svg>
+  <svg class="spark" style="left:900px;top:1350px" width="44" height="44" viewBox="0 0 24 24"><path d="M12 0c1 7 5 11 12 12c-7 1-11 5-12 12c-1-7-5-11-12-12c7-1 11-5 12-12z" fill="#ffd9b8"/></svg>
+</section>
+
+<!-- 3 -->
+<section class="s" id="s3">
+  <div class="bg"></div>
+  <div class="head"><div class="l1 sans">Happy birthday</div><div class="l2 serif">another year of you</div></div>
+  <div class="pol p1"><div class="tape"></div><img src="../p/booth-3.jpg" alt="" style="object-position:50% 25%"><p>us</p></div>
+  <div class="pol p2"><div class="tape"></div><img src="../us/036.jpg" alt=""><p>that smile</p></div>
+  <div class="pol p3"><div class="tape"></div><img src="../us/017.jpg" alt=""><p>cutie</p></div>
+  <div class="pol p4"><div class="tape"></div><img src="../us/030.jpg" alt=""><p>always</p></div>
+  <div class="end hand">love you, Kathleen ♡</div>
+</section>
+
+<!-- 4 -->
+<section class="s" id="s4">
+  <div class="glow"></div>
+  <div class="av"><img src="../us/037.jpg" alt=""></div>
+  <div class="date"><span class="sans">TODAY</span></div>
+  <div class="chat">
+    <div class="m out">im so happyyy<time>23.10</time></div>
+    <div class="m in">kathleen happy aku juga happyyy<time>23.10</time></div>
+    <div class="m out">happy birthday sayang ♡<time>00.00</time></div>
+  </div>
+  <div class="hb"><div class="a serif">Happy Birthday</div><div class="b hand">Kathleen</div></div>
+</section>
+</body></html>
