@@ -556,7 +556,8 @@ main.show+.foot{display:block}
     setTimeout(()=>cue.classList.add('lit'),10000);
   }
   const blocked=e=>e&&e.name==='NotAllowedError'; // autoplay with sound refused; anything else (a pause during load) is not a reason to mute
-  function startFilm(withSound){ film.muted=!withSound; film.play().catch(e=>{ if(!blocked(e)) return; film.muted=true; film.play().catch(()=>{}); }); }
+  const GREETING=224; // 3:44, the "Happy birthday, sayang!" card; open the page with #greeting to start there
+  function startFilm(withSound){ if(location.hash==='#greeting'){ const seek=()=>{ film.currentTime=GREETING; }; film.readyState>=1?seek():film.addEventListener('loadedmetadata',seek,{once:true}); } film.muted=!withSound; film.play().catch(e=>{ if(!blocked(e)) return; film.muted=true; film.play().catch(()=>{}); }); }
   form.addEventListener('submit',async e=>{
     e.preventDefault(); const v=pw.value.trim(); if(!v) return;
     audioInit(); bubble('out',v); ding(.3); pw.value='';
