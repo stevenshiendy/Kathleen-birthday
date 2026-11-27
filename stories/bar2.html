@@ -1,0 +1,67 @@
+<!doctype html>
+<html><head><meta charset="utf-8"><title>Kathleen Bar Stories</title>
+<link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500;700&display=swap" rel="stylesheet">
+<style>
+*{box-sizing:border-box;margin:0;padding:0}
+body{background:#222;display:flex;gap:40px;padding:40px}
+.s{width:1080px;height:1920px;position:relative;overflow:hidden;background:#120a06;flex:none}
+.bg{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;object-position:52% 50%}
+.grain{position:absolute;inset:0;opacity:.22;mix-blend-mode:overlay;pointer-events:none}
+
+/* A: the tab */
+#a .bg{filter:saturate(1.05) contrast(1.04)}
+#a .shade{position:absolute;inset:0;background:linear-gradient(to bottom,rgba(0,0,0,.25),transparent 18%,transparent 55%,rgba(10,5,2,.55))}
+.rc{position:absolute;left:36px;top:1175px;width:450px;transform:rotate(3.5deg);font-family:"IBM Plex Mono",monospace;color:#2a2622;
+  filter:drop-shadow(0 30px 40px rgba(0,0,0,.55)) drop-shadow(0 4px 6px rgba(0,0,0,.35))}
+.paper{background:#f3efe6;padding:38px 32px 30px;
+  background-image:linear-gradient(100deg,rgba(0,0,0,.035) 0 30%,transparent 31% 62%,rgba(0,0,0,.04) 63% 64%,transparent 65%),linear-gradient(#f5f1e9,#ebe5d9);
+  -webkit-mask:conic-gradient(from -45deg at bottom,#0000,#000 1deg 89deg,#0000 90deg) bottom/24px 51% repeat-x,conic-gradient(from 135deg at top,#0000,#000 1deg 89deg,#0000 90deg) top/24px 51% repeat-x}
+.c{text-align:center}
+.rc .hd{font-size:28px;font-weight:700;letter-spacing:.02em}
+.rc .sm{font-size:18px;line-height:1.5;color:#5b544c}
+.rule{border-top:2px dashed #8f877c;margin:14px 0}
+.row{display:flex;justify-content:space-between;font-size:20px;line-height:1.7}
+.row span:last-child{text-align:right}
+.tot{display:flex;justify-content:space-between;font-size:24px;font-weight:700;margin-top:4px}
+.big{font-size:48px;font-weight:700;line-height:1.02;text-align:center;letter-spacing:-.01em;margin:8px 0 6px}
+.bc{height:50px;margin:16px 16px 4px;background:repeating-linear-gradient(90deg,#2a2622 0 3px,transparent 3px 6px,#2a2622 6px 7px,transparent 7px 11px,#2a2622 11px 15px,transparent 15px 17px,#2a2622 17px 18px,transparent 18px 22px)}
+
+/* B: film still */
+#b .bg{filter:saturate(.9) contrast(1.12) brightness(.92) sepia(.12)}
+#b .shade{position:absolute;inset:0;background:radial-gradient(120% 80% at 50% 45%,transparent 50%,rgba(0,0,0,.55)),linear-gradient(to bottom,transparent 72%,rgba(0,0,0,.6) 90%)}
+.sub{position:absolute;left:60px;right:60px;top:1610px;text-align:center;font-family:"Liberation Sans",Arial,sans-serif;font-size:46px;line-height:1.35;color:#fff6c9;
+  text-shadow:0 0 2px #000,0 2px 3px #000,0 0 14px rgba(0,0,0,.6)}
+.tc{position:absolute;left:64px;top:300px;font-family:"IBM Plex Mono",monospace;font-size:24px;color:rgba(255,240,215,.8);letter-spacing:.04em;line-height:1.6}
+.tc b{color:#ff5a3c;font-weight:500}
+</style></head><body>
+<svg width="0" height="0" style="position:absolute"><filter id="n"><feTurbulence type="fractalNoise" baseFrequency=".9" numOctaves="2" stitchTiles="stitch"/><feColorMatrix values="0 0 0 0 .5  0 0 0 0 .5  0 0 0 0 .5  0 0 0 1 0"/></filter></svg>
+
+<section class="s" id="a">
+  <img class="bg" src="../us/087.jpg" alt="">
+  <div class="shade"></div>
+  <svg class="grain" width="1080" height="1920"><rect width="100%" height="100%" filter="url(#n)"/></svg>
+  <div class="rc"><div class="paper">
+    <div class="c hd">TABLE 02</div>
+    <div class="c sm">guests: 2 &nbsp;·&nbsp; server: steven<br>check #1127</div>
+    <div class="rule"></div>
+    <div class="row"><span>1 pink roses</span><span>for her</span></div>
+    <div class="row"><span>2 matching fits</span><span>cream</span></div>
+    <div class="row"><span>1 kathleen</span><span>priceless</span></div>
+    <div class="row"><span>∞ birthday wishes</span><span>on me</span></div>
+    <div class="rule"></div>
+    <div class="tot"><span>BALANCE</span><span>0.00</span></div>
+    <div class="rule"></div>
+    <div class="big">HAPPY<br>BIRTHDAY<br>KATHLEEN</div>
+    <div class="c sm">tab stays open. every year.</div>
+    <div class="bc"></div>
+  </div></div>
+</section>
+
+<section class="s" id="b">
+  <img class="bg" src="../us/087.jpg" alt="">
+  <div class="shade"></div>
+  <svg class="grain" width="1080" height="1920"><rect width="100%" height="100%" filter="url(#n)"/></svg>
+  
+  <div class="sub">happy birthday, kathleen.<br>I'd pick this table again. every time.</div>
+</section>
+</body></html>
